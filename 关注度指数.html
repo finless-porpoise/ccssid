@@ -1,0 +1,119 @@
+﻿<!DOCTYPE html>
+<html style="height: 100%">
+   <head>
+       <meta charset="utf-8">
+   </head>
+   <body style="height: 100%; margin: 0">
+       <div id="container" style="height: 100%"></div>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-gl/echarts-gl.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts-stat/ecStat.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/dataTool.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/world.js"></script>
+       <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ZUONbpqGBsYGXNIYHicvbAbM"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/extension/bmap.min.js"></script>
+       <script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/simplex.js"></script>
+       <script type="text/javascript">
+var dom = document.getElementById("container");
+var myChart = echarts.init(dom);
+var app = {};
+option = null;
+
+var hours = ['一月', '二月', '三月', '四月', '五月', '六月', '七月',
+        '八月', '九月', '十月','十一月','十二月'];
+var days = ['2011年', '2012年', '2013年',
+        '2014年', '2015年', '2016年', '2017年', '2018年'];
+
+var data = [[0,0,348.00],[0,1,219.20],[0,2,216.40],[0,3,246.40],[0,4,389.80],[0,5,396.00],[0,6,239.80],[0,7,331.20],[0,8,233.80],[0,9,210.20],[0,10,259.80],[0,11,192.00],
+[1,0,266.00],[1,1,309.25],[1,2,2085.00],[1,3,2035.25],[1,4,678.00],[1,5,439.00],[1,6,421.50],[1,7,586.20],[1,8,603.00],[1,9,554.20],[1,10,857.75],[1,11,605.00],
+[2,0,2368.20],[2,1,538.75],[2,2,572.75],[2,3,793.80],[2,4,859.75],[2,5,800.50],[2,6,1083.60],[2,7,772.50],[2,8,589.25],[2,9,678.60],[2,10,615.50],[2,11,673.75],
+[3,0,559.80],[3,1,1116.75],[3,2,610.25],[3,3,601.00],[3,4,597.75],[3,5,441.00],[3,6,460.00],[3,7,444.00],[3,8,532.25],[3,9,444.60],[3,10,726.50],[3,11,564.20],
+[4,0,523.75],[4,1,489.50],[4,2,582.00],[4,3,558.00],[4,4,601.00],[4,5,814.75],[4,6,686.00],[4,7,769.25],[4,8,631.40],[4,9,643.00],[4,10,661.40],[4,11,513.00],
+[5,0,512.00],[5,1,613.50],[5,2,724.20],[5,3,853.25],[5,4,820.75],[5,5,660.20],[5,6,795.00],[5,7,557.25],[5,8,619.40],[5,9,786.25],[5,10,707.80],[5,11,572.50],
+[6,0,542.25],[6,1,685.80],[6,2,901.00],[6,3,600.25],[6,4,754.60],[6,5,576.75],[6,6,610.25],[6,7,582.40],[6,8,756.00],[6,9,722.50],[6,10,1480.20],[6,11,757.00],
+[7,0,547.75],[7,1,613.75],[7,2,845.20],[7,3,769.33],[7,4,0],[7,5,0],[7,6,0],[7,7,0],[7,8,0],[7,9,0],[7,10,1],[7,11,0]
+];
+option = {
+    tooltip: {},
+    visualMap: {
+        max: 1200,
+        inRange: {
+            color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
+        }
+    },
+/*月份*/
+    xAxis3D: {
+        type: 'category',
+        data: hours,
+	axisLabel:{
+	interval:0,
+}
+
+    },
+/*年份*/
+    yAxis3D: {
+        type: 'category',
+        data: days,
+	axisLabel:{
+	interval:0,
+}
+    },
+/*data*/
+    zAxis3D: {
+        type: 'value',
+	axisLabel:{
+	interval:500,
+}
+    },
+    grid3D: {
+        boxWidth: 200,
+        boxDepth: 80,
+        viewControl: {
+            // projection: 'orthographic'
+        },
+        light: {
+            main: {
+                intensity: 1.2,
+                shadow: true
+            },
+            ambient: {
+                intensity: 0.3
+            }
+        }
+    },
+    series: [{
+        type: 'bar3D',
+        data: data.map(function (item) {
+            return {
+                value: [item[1], item[0], item[2]],
+            }
+        }),
+        shading: 'lambert',
+
+        label: {
+            textStyle: {
+                fontSize: 16,
+                borderWidth: 1
+            }
+        },
+
+        emphasis: {
+            label: {
+                textStyle: {
+                    fontSize: 20,
+                    color: '#900'
+                }
+            },
+            itemStyle: {
+                color: '#900'
+            }
+        }
+    }]
+};
+if (option && typeof option === "object") {
+    myChart.setOption(option, true);
+}
+       </script>
+   </body>
+</html>
